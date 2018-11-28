@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CarEntitiesStoreContainer" CdmEntityContainer="NewCarDealerEntities">
+    <EntitySetMapping Name="basecars">
+      <EntityTypeMapping TypeName="CarEntities.basecar">
+        <MappingFragment StoreEntitySet="basecar">
+          <ScalarProperty Name="basecarID" ColumnName="basecarID" />
+          <ScalarProperty Name="vin" ColumnName="vin" />
+          <ScalarProperty Name="basecarmodel" ColumnName="basecarmodel" />
+          <ScalarProperty Name="basecarmodelyear" ColumnName="basecarmodelyear" />
+          <ScalarProperty Name="basecarmodelfactorycost" ColumnName="basecarmodelfactorycost" />
+          <ScalarProperty Name="basecarmodelmsrp" ColumnName="basecarmodelmsrp" />
+          <ScalarProperty Name="sold" ColumnName="sold" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="customers">
+      <EntityTypeMapping TypeName="CarEntities.customer">
+        <MappingFragment StoreEntitySet="customer">
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="inventories">
+      <EntityTypeMapping TypeName="CarEntities.inventory">
+        <MappingFragment StoreEntitySet="inventory">
+          <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+          <ScalarProperty Name="basecarID" ColumnName="basecarID" />
+          <ScalarProperty Name="trimID" ColumnName="trimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reps">
+      <EntityTypeMapping TypeName="CarEntities.rep">
+        <MappingFragment StoreEntitySet="rep">
+          <ScalarProperty Name="repID" ColumnName="repID" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sales">
+      <EntityTypeMapping TypeName="CarEntities.sale">
+        <MappingFragment StoreEntitySet="sales">
+          <ScalarProperty Name="salesID" ColumnName="salesID" />
+          <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+          <ScalarProperty Name="repID" ColumnName="repID" />
+          <ScalarProperty Name="saledate" ColumnName="saledate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="trims">
+      <EntityTypeMapping TypeName="CarEntities.trim">
+        <MappingFragment StoreEntitySet="trim">
+          <ScalarProperty Name="trimID" ColumnName="trimID" />
+          <ScalarProperty Name="trimtype" ColumnName="trimtype" />
+          <ScalarProperty Name="trimtypeyear" ColumnName="trimtypeyear" />
+          <ScalarProperty Name="trimtypefactorycost" ColumnName="trimtypefactorycost" />
+          <ScalarProperty Name="trimtypemsrp" ColumnName="trimtypemsrp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
