@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CarEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="basecar">
+          <Key>
+            <PropertyRef Name="basecarID" />
+          </Key>
+          <Property Name="basecarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vin" Type="char" MaxLength="25" />
+          <Property Name="basecarmodel" Type="char" MaxLength="55" />
+          <Property Name="basecarmodelyear" Type="date" />
+          <Property Name="basecarmodelfactorycost" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="basecarmodelmsrp" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="sold" Type="bit" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="customerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lastname" Type="char" MaxLength="25" />
+          <Property Name="firstname" Type="char" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="inventoryID" />
+          </Key>
+          <Property Name="inventoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="basecarID" Type="int" />
+          <Property Name="trimID" Type="int" />
+        </EntityType>
+        <EntityType Name="rep">
+          <Key>
+            <PropertyRef Name="repID" />
+          </Key>
+          <Property Name="repID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lastname" Type="char" MaxLength="25" />
+          <Property Name="firstname" Type="char" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="sales">
+          <Key>
+            <PropertyRef Name="salesID" />
+          </Key>
+          <Property Name="salesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="inventoryID" Type="int" />
+          <Property Name="customerID" Type="int" />
+          <Property Name="repID" Type="int" />
+          <Property Name="saledate" Type="date" />
+        </EntityType>
+        <EntityType Name="trim">
+          <Key>
+            <PropertyRef Name="trimID" />
+          </Key>
+          <Property Name="trimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="trimtype" Type="char" MaxLength="55" />
+          <Property Name="trimtypeyear" Type="date" />
+          <Property Name="trimtypefactorycost" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="trimtypemsrp" Type="int" />
+        </EntityType>
+        <Association Name="FK__inventory__basec__2B3F6F97">
+          <End Role="basecar" Type="Self.basecar" Multiplicity="0..1" />
+          <End Role="inventory" Type="Self.inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="basecar">
+              <PropertyRef Name="basecarID" />
+            </Principal>
+            <Dependent Role="inventory">
+              <PropertyRef Name="basecarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__inventory__trimI__2C3393D0">
+          <End Role="trim" Type="Self.trim" Multiplicity="0..1" />
+          <End Role="inventory" Type="Self.inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trim">
+              <PropertyRef Name="trimID" />
+            </Principal>
+            <Dependent Role="inventory">
+              <PropertyRef Name="trimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales__customerI__300424B4">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales__inventory__2F10007B">
+          <End Role="inventory" Type="Self.inventory" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inventory">
+              <PropertyRef Name="inventoryID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="inventoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales__repID__30F848ED">
+          <End Role="rep" Type="Self.rep" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rep">
+              <PropertyRef Name="repID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="repID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarEntitiesStoreContainer">
+          <EntitySet Name="basecar" EntityType="Self.basecar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inventory" EntityType="Self.inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rep" EntityType="Self.rep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sales" EntityType="Self.sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trim" EntityType="Self.trim" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__inventory__basec__2B3F6F97" Association="Self.FK__inventory__basec__2B3F6F97">
+            <End Role="basecar" EntitySet="basecar" />
+            <End Role="inventory" EntitySet="inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__inventory__trimI__2C3393D0" Association="Self.FK__inventory__trimI__2C3393D0">
+            <End Role="trim" EntitySet="trim" />
+            <End Role="inventory" EntitySet="inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales__customerI__300424B4" Association="Self.FK__sales__customerI__300424B4">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales__inventory__2F10007B" Association="Self.FK__sales__inventory__2F10007B">
+            <End Role="inventory" EntitySet="inventory" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales__repID__30F848ED" Association="Self.FK__sales__repID__30F848ED">
+            <End Role="rep" EntitySet="rep" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="basecar">
+          <Key>
+            <PropertyRef Name="basecarID" />
+          </Key>
+          <Property Name="basecarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vin" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <Property Name="basecarmodel" Type="String" MaxLength="55" FixedLength="true" Unicode="false" />
+          <Property Name="basecarmodelyear" Type="DateTime" Precision="0" />
+          <Property Name="basecarmodelfactorycost" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="basecarmodelmsrp" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="sold" Type="Boolean" />
+          <NavigationProperty Name="inventories" Relationship="Self.FK__inventory__basec__2B3F6F97" FromRole="basecar" ToRole="inventory" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="customerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lastname" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <Property Name="firstname" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="sales" Relationship="Self.FK__sales__customerI__300424B4" FromRole="customer" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="inventoryID" />
+          </Key>
+          <Property Name="inventoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="basecarID" Type="Int32" />
+          <Property Name="trimID" Type="Int32" />
+          <NavigationProperty Name="basecar" Relationship="Self.FK__inventory__basec__2B3F6F97" FromRole="inventory" ToRole="basecar" />
+          <NavigationProperty Name="trim" Relationship="Self.FK__inventory__trimI__2C3393D0" FromRole="inventory" ToRole="trim" />
+          <NavigationProperty Name="sales" Relationship="Self.FK__sales__inventory__2F10007B" FromRole="inventory" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="rep">
+          <Key>
+            <PropertyRef Name="repID" />
+          </Key>
+          <Property Name="repID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lastname" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <Property Name="firstname" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="sales" Relationship="Self.FK__sales__repID__30F848ED" FromRole="rep" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="sale">
+          <Key>
+            <PropertyRef Name="salesID" />
+          </Key>
+          <Property Name="salesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="inventoryID" Type="Int32" />
+          <Property Name="customerID" Type="Int32" />
+          <Property Name="repID" Type="Int32" />
+          <Property Name="saledate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__sales__customerI__300424B4" FromRole="sales" ToRole="customer" />
+          <NavigationProperty Name="inventory" Relationship="Self.FK__sales__inventory__2F10007B" FromRole="sales" ToRole="inventory" />
+          <NavigationProperty Name="rep" Relationship="Self.FK__sales__repID__30F848ED" FromRole="sales" ToRole="rep" />
+        </EntityType>
+        <EntityType Name="trim">
+          <Key>
+            <PropertyRef Name="trimID" />
+          </Key>
+          <Property Name="trimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="trimtype" Type="String" MaxLength="55" FixedLength="true" Unicode="false" />
+          <Property Name="trimtypeyear" Type="DateTime" Precision="0" />
+          <Property Name="trimtypefactorycost" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="trimtypemsrp" Type="Int32" />
+          <NavigationProperty Name="inventories" Relationship="Self.FK__inventory__trimI__2C3393D0" FromRole="trim" ToRole="inventory" />
+        </EntityType>
+        <Association Name="FK__inventory__basec__2B3F6F97">
+          <End Role="basecar" Type="Self.basecar" Multiplicity="0..1" />
+          <End Role="inventory" Type="Self.inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="basecar">
+              <PropertyRef Name="basecarID" />
+            </Principal>
+            <Dependent Role="inventory">
+              <PropertyRef Name="basecarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales__customerI__300424B4">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__inventory__trimI__2C3393D0">
+          <End Role="trim" Type="Self.trim" Multiplicity="0..1" />
+          <End Role="inventory" Type="Self.inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trim">
+              <PropertyRef Name="trimID" />
+            </Principal>
+            <Dependent Role="inventory">
+              <PropertyRef Name="trimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales__inventory__2F10007B">
+          <End Role="inventory" Type="Self.inventory" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inventory">
+              <PropertyRef Name="inventoryID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="inventoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales__repID__30F848ED">
+          <End Role="rep" Type="Self.rep" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rep">
+              <PropertyRef Name="repID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="repID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewCarDealerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="basecars" EntityType="Self.basecar" />
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="inventories" EntityType="Self.inventory" />
+          <EntitySet Name="reps" EntityType="Self.rep" />
+          <EntitySet Name="sales" EntityType="Self.sale" />
+          <EntitySet Name="trims" EntityType="Self.trim" />
+          <AssociationSet Name="FK__inventory__basec__2B3F6F97" Association="Self.FK__inventory__basec__2B3F6F97">
+            <End Role="basecar" EntitySet="basecars" />
+            <End Role="inventory" EntitySet="inventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales__customerI__300424B4" Association="Self.FK__sales__customerI__300424B4">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__inventory__trimI__2C3393D0" Association="Self.FK__inventory__trimI__2C3393D0">
+            <End Role="trim" EntitySet="trims" />
+            <End Role="inventory" EntitySet="inventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales__inventory__2F10007B" Association="Self.FK__sales__inventory__2F10007B">
+            <End Role="inventory" EntitySet="inventories" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales__repID__30F848ED" Association="Self.FK__sales__repID__30F848ED">
+            <End Role="rep" EntitySet="reps" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarEntitiesStoreContainer" CdmEntityContainer="NewCarDealerEntities">
+          <EntitySetMapping Name="basecars">
+            <EntityTypeMapping TypeName="CarEntities.basecar">
+              <MappingFragment StoreEntitySet="basecar">
+                <ScalarProperty Name="basecarID" ColumnName="basecarID" />
+                <ScalarProperty Name="vin" ColumnName="vin" />
+                <ScalarProperty Name="basecarmodel" ColumnName="basecarmodel" />
+                <ScalarProperty Name="basecarmodelyear" ColumnName="basecarmodelyear" />
+                <ScalarProperty Name="basecarmodelfactorycost" ColumnName="basecarmodelfactorycost" />
+                <ScalarProperty Name="basecarmodelmsrp" ColumnName="basecarmodelmsrp" />
+                <ScalarProperty Name="sold" ColumnName="sold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="CarEntities.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventories">
+            <EntityTypeMapping TypeName="CarEntities.inventory">
+              <MappingFragment StoreEntitySet="inventory">
+                <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+                <ScalarProperty Name="basecarID" ColumnName="basecarID" />
+                <ScalarProperty Name="trimID" ColumnName="trimID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reps">
+            <EntityTypeMapping TypeName="CarEntities.rep">
+              <MappingFragment StoreEntitySet="rep">
+                <ScalarProperty Name="repID" ColumnName="repID" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales">
+            <EntityTypeMapping TypeName="CarEntities.sale">
+              <MappingFragment StoreEntitySet="sales">
+                <ScalarProperty Name="salesID" ColumnName="salesID" />
+                <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="repID" ColumnName="repID" />
+                <ScalarProperty Name="saledate" ColumnName="saledate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trims">
+            <EntityTypeMapping TypeName="CarEntities.trim">
+              <MappingFragment StoreEntitySet="trim">
+                <ScalarProperty Name="trimID" ColumnName="trimID" />
+                <ScalarProperty Name="trimtype" ColumnName="trimtype" />
+                <ScalarProperty Name="trimtypeyear" ColumnName="trimtypeyear" />
+                <ScalarProperty Name="trimtypefactorycost" ColumnName="trimtypefactorycost" />
+                <ScalarProperty Name="trimtypemsrp" ColumnName="trimtypemsrp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
