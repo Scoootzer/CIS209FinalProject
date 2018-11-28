@@ -56,23 +56,60 @@ namespace FinalProject {
                 case 0:
                     return
                         from c in dbctx.basecars
+                        join i in dbctx.inventories
+                            on c.basecarID equals i.basecarID
                         orderby c.basecarID
-                        select new { c.basecarID, c.vin, c.basecarmodel, c.basecarmodelfactorycost, c.basecarmodelmsrp, c.basecarmodelyear, c.sold };
+                        select new { c.basecarID,
+                            c.vin,
+                            c.basecarmodel,
+                            c.basecarmodelfactorycost,
+                            c.basecarmodelmsrp,
+                            c.basecarmodelyear,
+                            sold = (bool)c.sold ? "Yes" : "No",
+                            i.inventoryID };
                 case 1:
                     return
                         from c in dbctx.basecars
+                        join i in dbctx.inventories
+                            on c.basecarID equals i.basecarID
                         orderby c.basecarmodelfactorycost
-                        select new { c.basecarID, c.vin, c.basecarmodel, c.basecarmodelfactorycost, c.basecarmodelmsrp, c.basecarmodelyear, c.sold };
+                        select new {
+                            c.basecarID,
+                            c.vin,
+                            c.basecarmodel,
+                            c.basecarmodelfactorycost,
+                            c.basecarmodelmsrp,
+                            c.basecarmodelyear,
+                            sold = (bool)c.sold ? "Yes" : "No",
+                            i.inventoryID };
                 case 2:
                     return
                         from c in dbctx.basecars
+                        join i in dbctx.inventories
+                            on c.basecarID equals i.basecarID
                         orderby c.basecarmodelfactorycost descending
-                        select new { c.basecarID, c.vin, c.basecarmodel, c.basecarmodelfactorycost, c.basecarmodelmsrp, c.basecarmodelyear, c.sold };
+                        select new { c.basecarID,
+                            c.vin,
+                            c.basecarmodel,
+                            c.basecarmodelfactorycost,
+                            c.basecarmodelmsrp,
+                            c.basecarmodelyear,
+                            sold = (bool)c.sold ? "Yes" : "No",
+                            i.inventoryID };
                 case 3:
                     return
                         from c in dbctx.basecars
-                        orderby c.sold
-                        select new { c.basecarID, c.vin, c.basecarmodel, c.basecarmodelfactorycost, c.basecarmodelmsrp, c.basecarmodelyear, c.sold };
+                        join i in dbctx.inventories
+                            on c.basecarID equals i.basecarID
+                        orderby c.sold descending
+                        select new { c.basecarID,
+                            c.vin,
+                            c.basecarmodel,
+                            c.basecarmodelfactorycost,
+                            c.basecarmodelmsrp,
+                            c.basecarmodelyear,
+                            sold = (bool)c.sold ? "Yes" : "No",
+                            i.inventoryID };
                 default:
                     return new List<dynamic>().AsQueryable();
             }
@@ -85,17 +122,29 @@ namespace FinalProject {
                     return
                         from c in dbctx.customers
                         orderby c.customerID
-                        select new { c.customerID, c.lastname, c.firstname, c.sales };
+                        select new {
+                            c.customerID,
+                            c.lastname,
+                            c.firstname,
+                            c.sales };
                 case 1:
                     return
                         from c in dbctx.customers
                         orderby c.lastname
-                        select new { c.customerID, c.lastname, c.firstname, c.sales };
+                        select new {
+                            c.customerID,
+                            c.lastname,
+                            c.firstname,
+                            c.sales };
                 case 2:
                     return
                         from c in dbctx.customers
                         orderby c.lastname descending
-                        select new { c.customerID, c.lastname, c.firstname, c.sales };
+                        select new {
+                            c.customerID,
+                            c.lastname,
+                            c.firstname,
+                            c.sales };
                 default:
                     return new List<dynamic>().AsQueryable();
             }
@@ -105,11 +154,16 @@ namespace FinalProject {
         public static IQueryable<dynamic> inventoryQueriesList(NewCarDealerEntities dbctx, ComboBox cbx) {
             switch (cbx.SelectedIndex) {
                 case 0:
-                    return
-                        from i in dbctx.inventories
-                        join b in dbctx.basecars on i.basecarID equals b.basecarID
-                        join t in dbctx.trims on i.trimID equals t.trimID
-                        select new { i.inventoryID, i.basecarID, b.basecarmodel, trims = t.trimtype, b.basecarmodelmsrp };
+                    return from i in dbctx.inventories
+                           join b in dbctx.basecars
+                              on i.basecarID equals b.basecarID
+                           join t in dbctx.trims
+                               on i.trimID equals t.trimID
+                           orderby i.basecarID
+                           orderby b.basecarmodel
+                           orderby i.inventoryID
+                           where (bool)!b.sold
+                           select new { i.inventoryID, b.basecarID, b.basecarmodel, trim = t.trimtype, msrp = b.basecarmodelmsrp };
                 case 1:
                     return queryInventory(dbctx, "CHEVY EQUINOX");
                 case 2:
@@ -119,19 +173,23 @@ namespace FinalProject {
                 case 4:
                     return queryInventory(dbctx, "CHEVY TRAX");
                 case 5:
-                    return
-                        from i in dbctx.inventories
-                        join b in dbctx.basecars on i.basecarID equals b.basecarID
-                        join t in dbctx.trims on i.trimID equals t.trimID
-                        orderby b.basecarmodelmsrp
-                        select new { i.inventoryID, i.basecarID, b.basecarmodel, trims = t.trimtype, b.basecarmodelmsrp };
+                    return from i in dbctx.inventories
+                           join b in dbctx.basecars
+                              on i.basecarID equals b.basecarID
+                           join t in dbctx.trims
+                               on i.trimID equals t.trimID
+                           orderby b.basecarmodelmsrp
+                           where (bool)!b.sold
+                           select new { i.inventoryID, b.basecarID, b.basecarmodel, trim = t.trimtype, msrp = b.basecarmodelmsrp };
                 case 6:
-                    return
-                        from i in dbctx.inventories
-                        join b in dbctx.basecars on i.basecarID equals b.basecarID
-                        join t in dbctx.trims on i.trimID equals t.trimID
-                        orderby b.basecarmodelmsrp descending
-                        select new { i.inventoryID, i.basecarID, b.basecarmodel, trims = t.trimtype, b.basecarmodelmsrp };
+                    return from i in dbctx.inventories
+                           join b in dbctx.basecars
+                              on i.basecarID equals b.basecarID
+                           join t in dbctx.trims
+                               on i.trimID equals t.trimID
+                           orderby b.basecarmodelmsrp descending
+                           where (bool)!b.sold
+                           select new { i.inventoryID, b.basecarID, b.basecarmodel, trim = t.trimtype, msrp = b.basecarmodelmsrp };
                 default:
                     return new List<dynamic>().AsQueryable();
             }
@@ -143,23 +201,43 @@ namespace FinalProject {
                 case 0:
                     return
                         from s in dbctx.sales
-                        orderby s.salesID
-                        select new { s.salesID, s.inventoryID, s.customerID, s.repID, s.saledate, s.inventory, s.customer, s.rep };
+                        select new
+                        {
+                            s.salesID,
+                            s.inventoryID,
+                            custFirst = s.customer.firstname,
+                            repFirst = s.rep.firstname,
+                            s.saledate };
                 case 1:
                     return
                         from s in dbctx.sales
                         orderby s.inventoryID
-                        select new { s.salesID, s.inventoryID, s.customerID, s.repID, s.saledate, s.inventory, s.customer, s.rep };
+                        select new {
+                            s.salesID,
+                            s.inventoryID,
+                            custFirst = s.customer.firstname,
+                            repFirst = s.rep.firstname,
+                            s.saledate };
                 case 2:
                     return
                         from s in dbctx.sales
-                        orderby s.customerID
-                        select new { s.salesID, s.inventoryID, s.customerID, s.repID, s.saledate, s.inventory, s.customer, s.rep };
+                        orderby s.customer.firstname
+                        select new {
+                            s.salesID,
+                            s.inventoryID,
+                            custFirst = s.customer.firstname,
+                            repFirst = s.rep.firstname,
+                            s.saledate };
                 case 3:
                     return
                         from s in dbctx.sales
                         orderby s.repID
-                        select new { s.salesID, s.inventoryID, s.customerID, s.repID, s.saledate, s.inventory, s.customer, s.rep };
+                        select new {
+                            s.salesID,
+                            s.inventoryID,
+                            custFirst = s.customer.firstname,
+                            repFirst = s.rep.firstname,
+                            s.saledate };
                 default:
                     return new List<dynamic>().AsQueryable();
             }
@@ -195,12 +273,17 @@ namespace FinalProject {
 
         // Method to reuse code for some inventories queries
         private static dynamic queryInventory(NewCarDealerEntities dbctx, string carmodel) {
-            return
-                from i in dbctx.inventories
-                join b in dbctx.basecars on i.basecarID equals b.basecarID
-                join t in dbctx.trims on i.trimID equals t.trimID
-                where b.basecarmodel == carmodel
-                select new { i.inventoryID, i.basecarID, b.basecarmodel, trims = t.trimtype, b.basecarmodelmsrp };
+            return from i in dbctx.inventories
+                         join b in dbctx.basecars
+                            on i.basecarID equals b.basecarID
+                         join t in dbctx.trims
+                             on i.trimID equals t.trimID
+                         orderby i.basecarID
+                         orderby b.basecarmodel
+                         orderby i.inventoryID
+                         where (bool)!b.sold
+                         where b.basecarmodel == carmodel
+                   select new { i.inventoryID, b.basecarID, b.basecarmodel, trim = t.trimtype, msrp = b.basecarmodelmsrp };
         }
     }
 }

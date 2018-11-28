@@ -25,11 +25,11 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayCarsTable));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.basecarBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.basecarBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -76,7 +76,7 @@
             this.cbxInventoryQueries = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnPurchase = new System.Windows.Forms.Button();
             this.bn_Inventory = new System.Windows.Forms.BindingNavigator(this.components);
             this.inventoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -99,7 +99,7 @@
             this.gb_AddRep = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAddRep = new System.Windows.Forms.Button();
             this.bn_Rep = new System.Windows.Forms.BindingNavigator(this.components);
             this.repBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
@@ -397,10 +397,10 @@
             // basecarmodelfactorycostDataGridViewTextBoxColumn
             // 
             this.basecarmodelfactorycostDataGridViewTextBoxColumn.DataPropertyName = "basecarmodelfactorycost";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "C2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.basecarmodelfactorycostDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "C2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.basecarmodelfactorycostDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle11;
             this.basecarmodelfactorycostDataGridViewTextBoxColumn.HeaderText = "Factory Cost";
             this.basecarmodelfactorycostDataGridViewTextBoxColumn.Name = "basecarmodelfactorycostDataGridViewTextBoxColumn";
             this.basecarmodelfactorycostDataGridViewTextBoxColumn.ReadOnly = true;
@@ -408,10 +408,10 @@
             // basecarmodelmsrpDataGridViewTextBoxColumn
             // 
             this.basecarmodelmsrpDataGridViewTextBoxColumn.DataPropertyName = "basecarmodelmsrp";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.basecarmodelmsrpDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "C2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.basecarmodelmsrpDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle12;
             this.basecarmodelmsrpDataGridViewTextBoxColumn.HeaderText = "MSRP";
             this.basecarmodelmsrpDataGridViewTextBoxColumn.Name = "basecarmodelmsrpDataGridViewTextBoxColumn";
             this.basecarmodelmsrpDataGridViewTextBoxColumn.ReadOnly = true;
@@ -611,7 +611,7 @@
             this.tab_Inventory.Controls.Add(this.cbxInventoryQueries);
             this.tab_Inventory.Controls.Add(this.textBox4);
             this.tab_Inventory.Controls.Add(this.textBox3);
-            this.tab_Inventory.Controls.Add(this.button3);
+            this.tab_Inventory.Controls.Add(this.btnPurchase);
             this.tab_Inventory.Controls.Add(this.bn_Inventory);
             this.tab_Inventory.Controls.Add(this.inventoryDataGridView);
             this.tab_Inventory.Location = new System.Drawing.Point(4, 22);
@@ -631,10 +631,11 @@
             "3. Chevy Blazer Only",
             "4. Chevy Traverse Only",
             "5. Chevy Trax Only",
-            "6. Price (Lowest to Highest)"});
-            this.cbxInventoryQueries.Location = new System.Drawing.Point(370, 393);
+            "6. Price (Lowest to Highest)",
+            "7. Price (Highest to Lowest)"});
+            this.cbxInventoryQueries.Location = new System.Drawing.Point(338, 393);
             this.cbxInventoryQueries.Name = "cbxInventoryQueries";
-            this.cbxInventoryQueries.Size = new System.Drawing.Size(121, 21);
+            this.cbxInventoryQueries.Size = new System.Drawing.Size(153, 21);
             this.cbxInventoryQueries.TabIndex = 8;
             this.cbxInventoryQueries.SelectedIndexChanged += new System.EventHandler(this.cbxInventoryQueries_SelectedIndexChanged);
             // 
@@ -652,14 +653,14 @@
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 6;
             // 
-            // button3
+            // btnPurchase
             // 
-            this.button3.Location = new System.Drawing.Point(708, 391);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnPurchase.Location = new System.Drawing.Point(708, 391);
+            this.btnPurchase.Name = "btnPurchase";
+            this.btnPurchase.Size = new System.Drawing.Size(75, 23);
+            this.btnPurchase.TabIndex = 5;
+            this.btnPurchase.Text = "Purchase";
+            this.btnPurchase.UseVisualStyleBackColor = true;
             // 
             // bn_Inventory
             // 
@@ -821,10 +822,10 @@
             // Price
             // 
             this.Price.DataPropertyName = "msrp";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Price.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "C2";
+            dataGridViewCellStyle13.NullValue = null;
+            this.Price.DefaultCellStyle = dataGridViewCellStyle13;
             this.Price.HeaderText = "Price";
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
@@ -847,7 +848,7 @@
             // 
             this.gb_AddRep.Controls.Add(this.textBox2);
             this.gb_AddRep.Controls.Add(this.textBox1);
-            this.gb_AddRep.Controls.Add(this.button2);
+            this.gb_AddRep.Controls.Add(this.btnAddRep);
             this.gb_AddRep.Location = new System.Drawing.Point(789, 6);
             this.gb_AddRep.Name = "gb_AddRep";
             this.gb_AddRep.Size = new System.Drawing.Size(222, 382);
@@ -869,15 +870,15 @@
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 1;
             // 
-            // button2
+            // btnAddRep
             // 
-            this.button2.Location = new System.Drawing.Point(97, 309);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnAddRep.Location = new System.Drawing.Point(16, 308);
+            this.btnAddRep.Name = "btnAddRep";
+            this.btnAddRep.Size = new System.Drawing.Size(75, 23);
+            this.btnAddRep.TabIndex = 0;
+            this.btnAddRep.Text = "Add Rep";
+            this.btnAddRep.UseVisualStyleBackColor = true;
+            this.btnAddRep.Click += new System.EventHandler(this.button2_Click);
             // 
             // bn_Rep
             // 
@@ -1048,11 +1049,11 @@
             this.cbxSalesQueries.Items.AddRange(new object[] {
             "1. Default View",
             "2. InventoryID",
-            "3. CustomerID",
-            "4. RepID"});
-            this.cbxSalesQueries.Location = new System.Drawing.Point(662, 394);
+            "3. Customer First Name (A-Z)",
+            "4. Rep First Name (A-Z)"});
+            this.cbxSalesQueries.Location = new System.Drawing.Point(641, 395);
             this.cbxSalesQueries.Name = "cbxSalesQueries";
-            this.cbxSalesQueries.Size = new System.Drawing.Size(121, 21);
+            this.cbxSalesQueries.Size = new System.Drawing.Size(142, 21);
             this.cbxSalesQueries.TabIndex = 3;
             this.cbxSalesQueries.SelectedIndexChanged += new System.EventHandler(this.cbxSalesQueries_SelectedIndexChanged);
             // 
@@ -1402,10 +1403,10 @@
             // dataGridViewTextBoxColumn26
             // 
             this.dataGridViewTextBoxColumn26.DataPropertyName = "trimtypefactorycost";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "C2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewTextBoxColumn26.HeaderText = "Factory Cost";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             this.dataGridViewTextBoxColumn26.ReadOnly = true;
@@ -1413,10 +1414,10 @@
             // dataGridViewTextBoxColumn27
             // 
             this.dataGridViewTextBoxColumn27.DataPropertyName = "trimtypemsrp";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "C2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.dataGridViewTextBoxColumn27.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "C2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.dataGridViewTextBoxColumn27.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewTextBoxColumn27.HeaderText = "MSRP";
             this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
             this.dataGridViewTextBoxColumn27.ReadOnly = true;
@@ -1625,10 +1626,10 @@
         private System.Windows.Forms.GroupBox gb_AddRep;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAddRep;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnPurchase;
         private System.Windows.Forms.ComboBox cbxCarsQueries;
         private System.Windows.Forms.ComboBox cbxCustomersQueries;
         private System.Windows.Forms.ComboBox cbxInventoryQueries;
